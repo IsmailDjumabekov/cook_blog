@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -52,8 +53,8 @@ class Recipe(models.Model):
     serves = models.CharField(max_length=50)
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
-    ingredients = models.TextField()
-    direction = models.TextField()
+    ingredients = RichTextField()
+    direction = RichTextField()
     post = models.ForeignKey(Post, related_name="recipes", on_delete=models.SET_NULL, null=True, blank=True)
 
 class Comment(models.Model):

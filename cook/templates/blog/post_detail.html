@@ -55,11 +55,11 @@
                         </div>
                         <div class="single-post__recipe__details__indegradients">
                             <h5>Ingredients</h5>
-                            {{ recipe.ingredients }}
+                            {{ recipe.ingredients|safe }}
                         </div>
                         <div class="single-post__recipe__details__direction">
                             <h5>Directions</h5>
-                            {{ recipe.direction }}
+                            {{ recipe.direction|safe }}
                         </div>
                         {% endfor %}
                     </div>
