@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load menu_tags %}
+<nav class="header__menu">
+    <ul>
+        <li class="active"><a href="/">Главная</a></li>
+        {% get_last_posts %}
+        {% get_categories %}
+        <li><a href="{% url 'about' %}">О нас</a></li>
+        <li><a href="{% url 'contact' %}">Контакты</a></li>
+        <li><a href="{% url 'login' %}">Войти</a></li>
+    </ul>
+</nav>
