@@ -30,7 +30,6 @@
     <div class="loader"></div>
 </div>
 
-<!-- Humberger Begin -->
 {% include 'blog/include/left_nav.html' %}
 <!-- Humberger End -->
 
@@ -40,7 +39,11 @@
 
 {% block content %}
 <!-- Hero Section Begin -->
-
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
 <!-- Categories Section End -->
 {% endblock content %}
 <!-- Footer Section Begin -->

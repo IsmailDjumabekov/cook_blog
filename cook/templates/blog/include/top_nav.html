@@ -6,6 +6,11 @@
         {% get_categories %}
         <li><a href="{% url 'about' %}">О нас</a></li>
         <li><a href="{% url 'contact' %}">Контакты</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Выйти</a></li>
+        {% else %}
+        <li><a href="{% url 'register_user' %}">Регистрация</a></li>
         <li><a href="{% url 'login' %}">Войти</a></li>
+        {% endif %}
     </ul>
 </nav>

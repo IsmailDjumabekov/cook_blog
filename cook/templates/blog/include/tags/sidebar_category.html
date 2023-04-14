@@ -1,0 +1,8 @@
+{% load  mptt_tags menu_tags %}
+
+<ul>
+    {% get_all_categories as list_category %}
+    {% for node in list_category %}
+        <li><a href="{% url 'post_list' node.slug %}">{{ node.name }}</a></li>
+    {% endi %}
+</ul>

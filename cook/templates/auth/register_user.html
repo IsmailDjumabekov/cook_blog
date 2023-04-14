@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if form.errors %}
+<p>Ошибка регистрации</p>
+{% endif %}
+<h4>Регистрация</h4>
+<br>
+<form action="{% url 'register_user' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="btn btn-secondary">
+</form>
+<br><br><br>
+
+{% endblock content %}

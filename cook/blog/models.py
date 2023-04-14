@@ -15,10 +15,11 @@ class Category(MPTTModel):
         null=True,
         blank=True
     )
-
+    #определяет строкове значение в бд или в консоли
     def __str__(self):
         return self.name
 
+    # order_insertion_by сортироваться по имени при вставке новых узлов в дерево
     class MPTTMeta:
         order_insertion_by = ['name']
 
