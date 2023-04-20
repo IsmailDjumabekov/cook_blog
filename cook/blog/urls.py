@@ -8,3 +8,4 @@ urlpatterns = [
     path('<slug:slug>/', cache_page(60*10)(views.PostListView.as_view()), name="post_list"),
     path('', cache_page(60*10)(views.HomeView.as_view()), name="home"),
 ]
+

@@ -16,10 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf.urls import handler404, handler500
 from django.urls import path, include
+from blog.views import BlogAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/bloglist/', BlogAPIView.as_view()),
+    path('api/v1/bloglist/<int:pk>/', BlogAPIView.as_view()),
     path('captcha', include('captcha.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('contact.urls')),
@@ -31,3 +35,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

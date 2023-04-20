@@ -1,13 +1,58 @@
-from django.contrib.auth import logout, login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView,CreateView
 from django.views.generic.edit import DataMixin
+from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework.views import APIView
 
 from .models import Post, Comment
 from .forms import CommentForm
+from .serializers import PostSerializer
+
+
+class BlogAPIView(APIView):
+    def get(self, request):
+        lst = Post.objects.all()
+        return Response({'posts': PostSerializer(lst, many=True).data})
+
+    def post(self, request):
+        serializer = PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'post', serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method put not allowed"})
+
+        try:
+            instance = Post.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object is not exists"})
+
+        serializer = PostSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE now allowed"})
+
+        try:
+            article = Post.objects.get(pk=pk)
+            article.delete()
+        except:
+            return Response({"error": "Object does not exists"})
+        return Response({"post": "delete post " + str(pk)})
+
+
+
+# class BlogAPIView(generics.ListAPIView):
+#     queryset = Post.objects.all()
+#     serializer_class = BlogSerializer
+
 class HomeView(DataMixin, ListView):
     model = Post
     paginate_by = 9
@@ -53,4 +98,6 @@ class CreateComment(CreateView):
 
     def get_success_url(self):
         return self.object.post.get_absolute_url()
+
+
 

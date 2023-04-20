@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'contact',
     'members',
     'captcha',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
