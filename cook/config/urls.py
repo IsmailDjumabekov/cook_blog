@@ -17,13 +17,23 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf.urls import handler404, handler500
-from django.urls import path, include
-from blog.views import BlogAPIView
+from django.urls import path, include, re_path
+from blog.views import *
+from rest_framework import routers
+
+# router = routers.DefaultRouter()
+# router.register(r'post', PostViewSet, basename='post')
+# print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/bloglist/', BlogAPIView.as_view()),
-    path('api/v1/bloglist/<int:pk>/', BlogAPIView.as_view()),
+    # path('api/v1/', include(router.urls)),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/postlist/', PostAPIList.as_view()),
+    path('api/v1/postlist/<int:pk>/', PostAPIUpdate.as_view()),
+    path('api/v1/postdelete/<int:pk>/', PostAPIDestroy.as_view()),
+    path('api/v1/auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('captcha', include('captcha.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('contact.urls')),

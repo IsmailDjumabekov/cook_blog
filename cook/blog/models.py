@@ -31,7 +31,7 @@ class Tag(models.Model):
         return self.name
 
 class Post(models.Model):
-    author = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name="posts", verbose_name='Пользователь', on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='articles/')
     text = models.TextField()
